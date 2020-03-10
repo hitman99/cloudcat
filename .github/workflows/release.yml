@@ -1,0 +1,21 @@
+name: Publish Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Define vars
+        run: |
+          echo ${{ github.ref }} | cut -d '/' -f 3 > DOCKER_TAG
+      - name: Build and push docker image
+        run: |
+          cat ~/GH_TOKEN.txt | docker login -u hitman99 --password-stdin
+          docker build -t docker.pkg.github.com/hitman99/cloudcat/nginx:$(cat DOCKER_TAG) .
+          docker push docker.pkg.github.com/hitman99/cloudcat/nginx:VERSION
