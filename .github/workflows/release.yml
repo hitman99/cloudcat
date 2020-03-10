@@ -17,4 +17,4 @@ jobs:
       - name: Build and push docker image
         run: |
           docker build -t docker.pkg.github.com/hitman99/cloudcat/nginx:$(cat DOCKER_TAG) .
-          docker push docker.pkg.github.com/hitman99/cloudcat/nginx:VERSION
+          docker push docker.pkg.github.com/hitman99/cloudcat/nginx:$(cat DOCKER_TAG)
