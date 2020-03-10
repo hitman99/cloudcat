@@ -16,6 +16,5 @@ jobs:
           echo ${{ github.ref }} | cut -d '/' -f 3 > DOCKER_TAG
       - name: Build and push docker image
         run: |
-          #echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u hitman99 --password-stdin
           docker build -t docker.pkg.github.com/hitman99/cloudcat/nginx:$(cat DOCKER_TAG) .
           docker push docker.pkg.github.com/hitman99/cloudcat/nginx:VERSION
