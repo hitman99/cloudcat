@@ -1,0 +1,23 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: cloudcat
+  namespace: cloudcat
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-do
+spec:
+  tls:
+    - hosts:
+      - cloudcat.online
+      secretName: cloudcatroot-tls
+
+  rules:
+    - host: cloudcat.online
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nginx
+              servicePort: 80
